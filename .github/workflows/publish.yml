@@ -1,0 +1,38 @@
+name: Publish NuGet Packages
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+    
+env:
+  DOTNET_VERSION: '6.x'
+  
+jobs:
+  build-bid-engine-nuget:
+    runs-on: windows-latest
+    steps:
+    
+    - name: 'Checking out source code ...'
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: 'Setup .NET Environment'
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+       
+    - name: 'Add Package Source - Sullivan DevOps'
+      run: dotnet nuget add source 'https://pkgs.dev.azure.com/sullivanauctioneers/AuctionEngine/_packaging/Auction%40Local/nuget/v3/index.json' --username az --password ${{ secrets.ADO_PAT }} --name My-Azure-Artifacts-Feed
+
+    - name: 'Add Package Source - DevBlue Github'
+      run: dotnet nuget add source 'https://nuget.pkg.github.com/devblue' --username RandomString --password ${{ secrets.NUGET_PAT }} --name DevBlueGitHub
+      
+    - name: 'Build'
+      run: dotnet build ${{ github.workspace }}\BidsService.ApiContracts\BidsService.ApiContracts.csproj -c Release
+
+    - name: 'Publish Nuget Packages to Github Feed'
+      run: nuget push **\*.nupkg -Source 'https://nuget.pkg.github.com/devblue' -ApiKey ${{ secrets.NUGET_PAT }} -SkipDuplicate

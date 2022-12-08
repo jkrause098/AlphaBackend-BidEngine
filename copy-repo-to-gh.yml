@@ -1,0 +1,90 @@
+trigger:
+  branches:
+    include:
+    - '*'
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+  containers:
+  - container: ggshield
+    image: gitguardian/ggshield:latest
+    options: --user 0:0
+
+variables:
+- group: API
+- group: BypassGroup
+- name: RepoName
+  value: $(Build.Repository.Name)
+- name: BranchName
+  value: $(Build.SourceBranchName)
+
+stages:
+#Scan repository with GitGuardian
+- stage: GitGuardian
+  condition: ne(variables.BypassGitGuardian, variables['Build.Repository.Name'])
+  jobs:
+  - job: GitGuardianShield
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: ggshield
+    steps:
+    - script: ggshield scan ci
+      env:
+        GITGUARDIAN_API_KEY: $(gitguardianApiKey)   
+#Authenticate the GitHub CLI with a personal access token
+#List all repos currently in GitHub
+#Check to see if the Azure Repo name matches the name of any GitHub repos
+#GH_Repos is a Bash array of all GitHub repo names, the if block checks if AZ_Repo matches any of these values
+#If no matching repo is found, a new repo is created
+- stage: Replicating
+  dependsOn: GitGuardian
+  condition: ne(variables.BypassReplicating, variables['Build.Repository.Name'])
+  jobs:
+  - job: Replicate_Repository_In_GitHub
+    steps:
+      - bash: |
+          export GITHUB_TOKEN='$(GH_SECRET)'
+          gh auth login
+          gh auth status
+          AZ_Repo='${{ variables.RepoName }}'
+          GH_Repos=( $(gh repo list | awk '{print $1}' | awk -F'[/]' '{print $2}') )
+          if [[ ! " ${GH_Repos[*]} " =~ " $AZ_Repo " ]]; then
+              gh repo create DevBlue/$AZ_Repo --private --team sullivan-auctioneers
+              echo "Replicating the $AZ_Repo repository in GitHub."
+          else
+              echo "The $AZ_Repo repository has already been replicated."
+          fi
+
+#Log the repo files in the Pipeline's docker container in the working directory
+#Log the most recent commits, one line each
+- stage: Logging
+  dependsOn: GitGuardian
+  condition: ne(variables.BypassLogging, variables['Build.Repository.Name'])
+  jobs:
+  - job: Log_Git_Commits
+    steps:
+      - bash: |
+          echo "=============================================================================="
+          echo "Pushing the Following Files:"
+          ls -la /home/vsts/work/1/s
+          echo "=============================================================================="
+          echo "Most Recent Commits:"
+          git log --pretty=oneline
+          echo "=============================================================================="
+
+#Change the Git origin in the .git/config file from Azure to GitHub
+#Force push all branches to GitHub
+- stage: Pushing
+  dependsOn: Replicating
+  condition: ne(variables.BypassPushing, variables['Build.Repository.Name'])
+  jobs:
+  - job: Push_To_GitHub
+    steps:
+      - bash: |   
+          export AZURE_URL=https://sullivanauctioneers@dev.azure.com/sullivanauctioneers/AuctionEngine/_git/'${{ variables.RepoName }}'
+          export GH_URL=https://'$(GH_USERNAME)':'$(GH_SECRET)'@github.com/DevBlue/'${{ variables.RepoName }}'
+          sed -ie "s|$AZURE_URL|$GH_URL|" .git/config 
+          git checkout ${{ variables.BranchName }}
+          git push origin --all -f

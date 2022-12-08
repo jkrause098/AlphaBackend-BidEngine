@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AuctionPlatform.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="6.0.1048" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="6.0.1048" />
+    <PackageReference Include="SullivanAuctioneers.Common.ServiceRuntime" Version="1.0.18-gfc8a511" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BidsService.Domain\BidsService.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

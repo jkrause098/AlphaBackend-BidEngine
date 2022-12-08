@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BidsService.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController">
+            <summary>
+            Implements the API controller for auctions.
+            </summary>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.#ctor(Serilog.ILogger,AuctionPlatform.Contract.Interfaces.IDbContext,FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.OpenAuctionRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.CloseAuctionRequest},FluentValidation.IValidator{AuctionPlatform.Domain.Entities.Auction},FluentValidation.IValidator{AuctionPlatform.BidsService.Domain.AuctionInfo},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.PlaceBidRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.RetrieveBidsRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.DeleteBidsRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.RetrieveHighBidsRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.SellLotRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.CancelLotRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.UpdateLotRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.GetAuctionInfoRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.OpenChoiceLotRequest},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.SellChoiceLotRequest},SullivanAuctioneers.Common.Data.ITransformer{AuctionPlatform.Domain.Entities.BidIncrementTableDetail,AuctionPlatform.BidsService.ApiContracts.BidIncrement})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController"/> class.
+            </summary>
+            <param name="logger">The logging object.</param>
+            <param name="dbContext">The database context.</param>
+            <param name="openRequestValidator">The validation component.</param>
+            <param name="closeRequestValidator">The validation component.</param>
+            <param name="auctionValidator">The validation component.</param>
+            <param name="auctionInfoValidator">The validation component.</param>
+            <param name="placeBidRequestValidator">The validation component.</param>
+            <param name="retrieveLotBidsRequestValidator">The validation component.</param>
+            <param name="deleteLotBidsRequestValidator">The validation component.</param>
+            <param name="retrieveHighBidsRequestValidator">The validation component.</param>
+            <param name="sellLotRequestValidator">The validation component.</param>
+            <param name="cancelLotRequestValidator">The validation component.</param>
+            <param name="updateLotRequestValidator">The validation component.</param>
+            <param name="getAuctionInfoRequestValidator">The validation component.</param>
+            <param name="openChoiceLotRequestValidator">The validation component.</param>
+            <param name="sellChoiceLotRequestValidator">The validation component.</param>
+            <param name="bidIncrementTransform">The data transformation component.</param>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.OpenAuction(System.String)">
+            <summary>
+            Opens the specified auction to allow placing bids
+            </summary>
+            <param name="auctionId">The ID of the auction.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.GetAuctionInfo(System.String)">
+            <summary>
+            Retrieves the details about the specified auction
+            </summary>
+            <param name="auctionId">The ID of the auction.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.CloseAuction(System.String)">
+            <summary>
+            Stops and closes the specified auction along with all of its lots
+            </summary>
+            <param name="auctionId">The ID of the auction.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.PlaceBid(AuctionPlatform.BidsService.ApiContracts.PlaceBidRequest)">
+            <summary>
+            Places a bid on the open auction
+            </summary>
+            <param name="request">The request object.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.RetrieveLotBids(System.String)">
+            <summary>
+            Retrieves all current bids for the specified item in the open auction
+            </summary>
+            <param name="itemId">The ID of the auction lot (item).</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.RetrieveHighBids(AuctionPlatform.BidsService.ApiContracts.RetrieveHighBidsRequest)">
+            <summary>
+            Retrieves all current high bids for the specified collection of items in the open auction
+            </summary>
+            <param name="request">The request object.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.DeleteLotBids(System.String)">
+            <summary>
+            Deletes the last bid placed for the specified item in the open auction
+            </summary>
+            <param name="itemId">The ID of the auction lot (item).</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.SellLot(System.String)">
+            <summary>
+            Sells the specified item in the open auction to the user who placed highest bid
+            </summary>
+            <param name="itemId">The ID of the auction lot (item) to be sold.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.CancelLot(System.String)">
+            <summary>
+            Cancels the specified item and removes it from the auction
+            </summary>
+            <param name="itemId">The ID of the auction lot (item) to be canceled.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.UpdateLot(System.String,AuctionPlatform.BidsService.ApiContracts.UpdateLotRequest)">
+            <summary>
+            Updates the real-time status of the specified lot
+            </summary>
+            <param name="itemId">The ID of the auction lot (item) to be updated.</param>
+            <param name="request">The request object.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.OpenChoiceLot(System.String,System.String)">
+            <summary>
+            Creates a choice lot from the group of lots stored in the database under the specified <paramref name="groupId"/>
+            </summary>
+            <param name="auctionId">The ID of the auction that owns the choice lot.</param>
+            <param name="groupId">The ID of the choice lot group which must exist in the database.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController.SellChoiceLot(System.String,AuctionPlatform.BidsService.ApiContracts.SellChoiceLotRequest)">
+            <summary>
+            Sells the specified choice lot in the open auction to the user who placed highest bid
+            </summary>
+            <param name="groupId">The ID of the choice lot to be sold.</param>
+            <param name="request">The request object.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="T:AuctionPlatform.BidsService.WebApi.Controllers.RingController">
+            <summary>
+            Implements the API controller for auction rings.
+            </summary>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.RingController.#ctor(Serilog.ILogger,AuctionPlatform.Contract.Interfaces.IDbContext,FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.OpenRingRequest},FluentValidation.IValidator{AuctionPlatform.Domain.Entities.Ring},FluentValidation.IValidator{AuctionPlatform.BidsService.Domain.AuctionInfo},FluentValidation.IValidator{AuctionPlatform.BidsService.ApiContracts.UpdateRingRequest},SullivanAuctioneers.Common.Data.ITransformer{AuctionPlatform.Domain.Entities.BidIncrementTableDetail,AuctionPlatform.BidsService.ApiContracts.BidIncrement})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AuctionPlatform.BidsService.WebApi.Controllers.AuctionController"/> class.
+            </summary>
+            <param name="logger">The logging object.</param>
+            <param name="dbContext">The database context.</param>
+            <param name="openRequestValidator">The validation component.</param>
+            <param name="ringValidator">The validation component.</param>
+            <param name="auctionInfoValidator">The validation component.</param>
+            <param name="updateRingRequestValidator">The validation component.</param>
+            <param name="bidIncrementTransform">The data transformation component.</param>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.RingController.OpenRing(System.String)">
+            <summary>
+            Opens the specified ring to allow placing bids
+            </summary>
+            <param name="ringId">The ID of the ring.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Controllers.RingController.UpdateRing(System.String,AuctionPlatform.BidsService.ApiContracts.UpdateRingRequest)">
+            <summary>
+            Updates the details of the specified ring
+            </summary>
+            <param name="ringId">The ID of the auction ring to be updated.</param>
+            <param name="request">The request object.</param>
+            <returns>The response object.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.Program.Main(System.String[])">
+            <summary>
+            This is the entry point of the service host process.
+            </summary>
+        </member>
+        <member name="T:AuctionPlatform.BidsService.WebApi.WebApi">
+            <summary>
+            An instance of this class is created for each service instance by the Service Fabric runtime.
+            </summary>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.WebApi.CreateServiceInstanceListeners">
+            <summary>
+            Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
+            </summary>
+            <returns>A collection of listeners.</returns>
+        </member>
+        <member name="M:AuctionPlatform.BidsService.WebApi.WebApi.RunAsync(System.Threading.CancellationToken)">
+            <summary>
+            This is the main entry point for your service instance.
+            </summary>
+            <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
+        </member>
+    </members>
+</doc>

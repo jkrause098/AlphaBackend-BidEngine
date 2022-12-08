@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+    <ServerGarbageCollection>True</ServerGarbageCollection>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+    <RootNamespace>AuctionPlatform.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <StartupObject>AuctionPlatform.BidsService.WebApi.Program</StartupObject>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AuctionPlatform.Contract" Version="1.0.0-g126930" />
+    <PackageReference Include="AuctionPlatform.ResourceAccess" Version="1.0.0-g126930" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="6.0.1048" />
+    <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.Kestrel" Version="6.0.1048" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="6.0.1048" />
+    <PackageReference Include="SullivanAuctioneers.Common.ServiceRuntime" Version="1.0.18-gfc8a511" />
+    <PackageReference Include="SullivanAuctioneers.Common.DependencyInjection.ServiceFabric" Version="1.0.18-gfc8a51" />
+    <PackageReference Include="SullivanAuctioneers.Common.Data" Version="1.0.19-gbbbadd" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="SerilogTimings" Version="3.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BidsService.ApiContracts\BidsService.ApiContracts.csproj" />
+    <ProjectReference Include="..\BidsService.Common\BidsService.Common.csproj" />
+    <ProjectReference Include="..\BidsService.Infrastructure\BidsService.Infrastructure.csproj" />
+    <ProjectReference Include="..\BidsService.Interfaces\BidsService.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

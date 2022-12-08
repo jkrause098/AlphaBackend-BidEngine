@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+    <ServerGarbageCollection>True</ServerGarbageCollection>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+    <RootNamespace>AuctionPlatform.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AuctionPlatform.ResourceAccess" Version="1.0.0-g126930" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.9.0" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="6.5.5" />
+    <PackageReference Include="Microsoft.Azure.SignalR.Management" Version="1.18.1" />
+    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.3.0" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="6.0.1048" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="6.0.1048" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="SerilogTimings" Version="3.0.1" />
+    <PackageReference Include="SullivanAuctioneers.Common.DependencyInjection.ServiceFabric" Version="1.0.18-gfc8a51" />
+    <PackageReference Include="SullivanAuctioneers.Common.Logging.ServiceFabric" Version="1.0.18-gfc8a51" />
+    <PackageReference Include="SullivanAuctioneers.Common.ServiceRuntime" Version="1.0.18-gfc8a511" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BidsService.Common\BidsService.Common.csproj" />
+    <ProjectReference Include="..\BidsService.Domain\BidsService.Domain.csproj" />
+    <ProjectReference Include="..\BidsService.Infrastructure\BidsService.Infrastructure.csproj" />
+    <ProjectReference Include="..\BidsService.Interfaces\BidsService.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

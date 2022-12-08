@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AuctionPlatform.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="6.0.1048" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BidsService.ApiContracts\BidsService.ApiContracts.csproj" />
+    <ProjectReference Include="..\BidsService.Domain\BidsService.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,54 @@
+{
+  "description": "Must reject bid with wrong increment",
+  "setup": {
+    "auctionId": "917BC0C2-98A5-EC11-A99B-0003FFAB728E",
+    "users": {
+      "user1": {
+        "userId": "97563686-35CA-EC11-997E-14CB6506CA7A",
+        "userName": "customer1",
+        "userState": "WA",
+        "userPaddleNo": "10"
+      },
+      "user2": {
+        "userId": "E2D3ACCC-35CA-EC11-997E-14CB6506CA7A",
+        "userName": "customer2",
+        "userState": "CA",
+        "userPaddleNo": "15"
+      }
+    },
+    "lots": {
+      "lot1": {
+        "itemId": "967bc0c2-98a5-ec11-a99b-0003ffab728e"
+      }
+    }
+  },
+  "workflow": [
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "bidAmount": 177600,
+      "expected": {
+        "bidAmount": 177600.0,
+        "lowBidAmount": 177000.0,
+        "highBidAmount": 178000.0,
+        "itemPrice": 0.0,
+        "success": false,
+        "status": "Rejected",
+        "msg": "The specified bid is not aligned with increment (1000) allowed for this item"
+      }
+    },
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "bidAmount": 178000,
+      "expected": {
+        "bidAmount": 178000.0,
+        "nextBidAmount": 179000.0,
+        "itemPrice": 178000.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    }
+  ]
+}

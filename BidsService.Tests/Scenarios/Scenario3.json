@@ -1,0 +1,351 @@
+{
+  "description": "Next bid amount must respect lower max bids and any standard bid",
+  "setup": {
+    "auctionId": "D07D7BB2-3001-ED11-B47A-14CB6506CEFB",
+    "users": {
+      "user5": {
+        "userId": "7453AE71-BD02-ED11-B47A-14CB6506CEFB",
+        "userName": "Laurin Dodd",
+        "userState": "CA",
+        "userPaddleNo": "5"
+      },
+      "user1": {
+        "userId": "E57D7BB2-3001-ED11-B47A-14CB6506CEFB",
+        "userName": "Laurin Dodd",
+        "userState": "CA",
+        "userPaddleNo": "1"
+      },
+      "user4": {
+        "userId": "EB7D7BB2-3001-ED11-B47A-14CB6506CEFB",
+        "userName": "Jason Krause",
+        "userState": "CA",
+        "userPaddleNo": "4"
+      },
+      "user3": {
+        "userId": "E97D7BB2-3001-ED11-B47A-14CB6506CEFB",
+        "userName": "Murly Gopalan",
+        "userState": "CA",
+        "userPaddleNo": "3"
+      }
+    },
+    "lots": {
+      "lot1": {
+        "itemId": "E27D7BB2-3001-ED11-B47A-14CB6506CEFB"
+      }
+    }
+  },
+  "workflow": [
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 1,
+      "expected": {
+        "bidAmount": 1.0,
+        "nextBidAmount": 2.0,
+        "itemPrice": 1.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "bidAmount": 2,
+      "expected": {
+        "bidAmount": 2.0,
+        "nextBidAmount": 3.0,
+        "itemPrice": 2.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 3,
+      "expected": {
+        "bidAmount": 3.0,
+        "nextBidAmount": 4.0,
+        "itemPrice": 3.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "maxBidAmount": 10,
+      "expected": {
+        "bidAmount": 4.0,
+        "nextBidAmount": 5.0,
+        "itemPrice": 4.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 5,
+      "expected": {
+        "bidAmount": 5.0,
+        "nextBidAmount": 7.0,
+        "itemPrice": 6.0,
+        "success": true,
+        "status": "AcceptedOutbid",
+        "msg": "Bid has been accepted and immediately outbid"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 7,
+      "expected": {
+        "bidAmount": 7.0,
+        "nextBidAmount": 9.0,
+        "itemPrice": 8.0,
+        "success": true,
+        "status": "AcceptedOutbid",
+        "msg": "Bid has been accepted and immediately outbid"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 9,
+      "expected": {
+        "bidAmount": 9.0,
+        "nextBidAmount": 11.0,
+        "itemPrice": 10.0,
+        "success": true,
+        "status": "AcceptedOutbid",
+        "msg": "Bid has been accepted and immediately outbid"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 11,
+      "expected": {
+        "bidAmount": 11.0,
+        "nextBidAmount": 12.0,
+        "itemPrice": 11.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "bidAmount": 12,
+      "expected": {
+        "bidAmount": 12.0,
+        "nextBidAmount": 13.0,
+        "itemPrice": 12.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 13,
+      "expected": {
+        "bidAmount": 13.0,
+        "nextBidAmount": 14.0,
+        "itemPrice": 13.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "bidAmount": 14,
+      "expected": {
+        "bidAmount": 14.0,
+        "nextBidAmount": 15.0,
+        "itemPrice": 14.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 15,
+      "expected": {
+        "bidAmount": 15.0,
+        "nextBidAmount": 16.0,
+        "itemPrice": 15.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user1",
+      "lot": "lot1",
+      "maxBidAmount": 20,
+      "expected": {
+        "bidAmount": 16.0,
+        "nextBidAmount": 17.0,
+        "itemPrice": 16.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 17,
+      "expected": {
+        "bidAmount": 17.0,
+        "nextBidAmount": 19.0,
+        "itemPrice": 18.0,
+        "success": true,
+        "status": "AcceptedOutbid",
+        "msg": "Bid has been accepted and immediately outbid"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 19,
+      "expected": {
+        "bidAmount": 19.0,
+        "nextBidAmount": 21.0,
+        "itemPrice": 20.0,
+        "success": true,
+        "status": "AcceptedOutbid",
+        "msg": "Bid has been accepted and immediately outbid"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 21,
+      "expected": {
+        "bidAmount": 21.0,
+        "nextBidAmount": 22.0,
+        "itemPrice": 21.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user3",
+      "lot": "lot1",
+      "bidAmount": 22,
+      "expected": {
+        "bidAmount": 22.0,
+        "nextBidAmount": 23.0,
+        "itemPrice": 22.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 23,
+      "expected": {
+        "bidAmount": 23.0,
+        "nextBidAmount": 24.0,
+        "itemPrice": 23.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user3",
+      "lot": "lot1",
+      "bidAmount": 24,
+      "expected": {
+        "bidAmount": 24.0,
+        "nextBidAmount": 25.0,
+        "itemPrice": 24.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user4",
+      "lot": "lot1",
+      "bidAmount": 25,
+      "expected": {
+        "bidAmount": 25.0,
+        "nextBidAmount": 30.0,
+        "itemPrice": 25.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "maxBidAmount": 35,
+      "expected": {
+        "bidAmount": 30.0,
+        "nextBidAmount": 35.0,
+        "itemPrice": 30.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user4",
+      "lot": "lot1",
+      "maxBidAmount": 50,
+      "expected": {
+        "bidAmount": 35.0,
+        "nextBidAmount": 40.0,
+        "itemPrice": 35.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 45,
+      "expected": {
+        "bidAmount": 45.0,
+        "nextBidAmount": 55.0,
+        "itemPrice": 50.0,
+        "success": true,
+        "status": "AcceptedOutbid",
+        "msg": "Bid has been accepted and immediately outbid"
+      }
+    },
+    {
+      "user": "user5",
+      "lot": "lot1",
+      "bidAmount": 55,
+      "expected": {
+        "bidAmount": 55.0,
+        "nextBidAmount": 60.0,
+        "itemPrice": 55.0,
+        "success": true,
+        "status": "Accepted",
+        "msg": "Winning bid has been accepted"
+      }
+    }
+  ]
+}
